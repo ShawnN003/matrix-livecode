@@ -44,6 +44,29 @@ public class SalamanderSearch {
      * @throws IllegalArgumentException if the enclosure does not contain a salamander
      */
     public static boolean canReach(char[][] enclosure) {
+        int[] start = salamanderLocation(enclosure);
+        boolean[][] visited = new boolean[enclosure.length][enclosure[0].length];
+        return canReach(enclosure, start, visited);
+    }
+
+    //questions:
+    //
+    //
+    public static boolean canReach(char[][] enclosure, int[] current, boolean[][] visited)
+    {
+        int curR = current[0];
+        int curC = current[1];
+        if(enclosure[curR][curC] == 'f') return true;    //if the food is found
+
+        if(visited[curR][curC]) return false;    //if we've already seen that location 
+
+        visited[curR][curC] = true;
+
+        List<int[]> neighbors = possibleMoves(enclosure, current);    //getting the possible places you can move using recursion
+        for(int[] neighbor : neighbors)
+        {
+            if(canReach(enclosure, neighbor, visited)) return true;     //??
+        }
         return false;
     }
 
