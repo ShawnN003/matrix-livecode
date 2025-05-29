@@ -46,4 +46,63 @@ public class SalamanderSearch {
     public static boolean canReach(char[][] enclosure) {
         return false;
     }
+
+    public static List<int[]> possibleMoves(char[][] enclosure, int[] current)
+    {
+        List<int[]> moves = new ArrayList<>();
+
+        int curR = current[0];
+        int curC = current[1];
+
+        //UP
+        int newRow = curR-1;
+        int newCol = curC;
+
+        if(newRow >= 0 && enclosure[newRow][newCol] != 'W')
+        {
+            moves.add(new int[]{newRow,newCol});
+        }
+        //DOWN
+        newRow = curR+1;
+        newCol = curC;
+    
+        if(newRow < enclosure.length && enclosure[newRow][newCol] != 'W')
+        {
+            moves.add(new int[]{newRow,newCol});
+        }
+        //LEFT
+        newRow = curR;
+        newCol = curC-1;
+        if(newCol >= 0 && enclosure[newRow][newCol] != 'W')
+        {
+            moves.add(new int[]{newRow,newCol});
+        }
+
+        //RIGHT
+        newRow = curR;
+        newCol = curC+1;
+        if(newCol < enclosure[newRow].length && enclosure[newRow][newCol] != 'W')
+        {
+            moves.add(new int[]{newRow,newCol});
+        }
+        return moves;
+    }
+    //O(n*m):
+    //n = # of cols 
+    //m = # of rows
+    public static int[] salamanderLocation(char[][] enclosure)
+    {
+        for(int row = 0; row < enclosure.length; row++)
+        {
+            for(int col = 0; col < enclosure[0].length; col++)
+            {
+                if(enclosure[row][col] == 's')
+                {
+                    int[] location = new int[] {row,col};
+                    return location;
+                }
+            }
+        }
+        throw new IllegalArgumentException("No salamander present");
+    }
 }
